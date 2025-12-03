@@ -6,13 +6,14 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->boolean('is_admin')->default(false)->after('email');
+            $table->string('username')->nullable()->after('name');
+            $table->date('birthday')->nullable();
+            $table->string('profile_photo')->nullable();
+            $table->text('about_me')->nullable();
         });
     }
 
@@ -22,7 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->dropColumn(['is_admin', 'username', 'birthday', 'profile_photo', 'about_me']);
         });
     }
 };
