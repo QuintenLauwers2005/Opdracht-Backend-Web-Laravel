@@ -15,6 +15,9 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if(!auth()->check()|| !auth()->user()->is_admin){
+            abort(403, 'Geen toegang. Alleen admins hebben toegang tot deze pagina.');
+        }
         return $next($request);
     }
 }
