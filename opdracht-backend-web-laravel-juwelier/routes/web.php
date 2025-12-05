@@ -1,20 +1,42 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\FaqController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\JewelryController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\Admin\AdminNewsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::get('/nieuws', [HomeController::class, 'index'])->name('news.index');
+Route::get('/nieuws/{newsItem}', [HomeController::class, 'show'])->name('news.show');
+
+Route::get('/faq', [FaqController::class, 'index'])->name('faq.index');
+
+Route::get('/contact', [ContactController::class, 'create'])->name('contact.create');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
+Route::get('/juwelen', [JewelryController::class, 'index'])->name('jewelry.index');
+Route::get('/juwelen/{product}', [JewelryController::class, 'show'])->name('jewelry.show');
+
+Route::get('/profiel/{user}', [ProfileController::class, 'show'])->name('profile.show');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profiel-bewerken', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profiel', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/nieuws/{newsItem}/reacties', [CommentController::class, 'store'])->name('comments.store');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard');
+    })->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::resource('news', AdminNewsController::class);
 });
 
 require __DIR__.'/auth.php';
