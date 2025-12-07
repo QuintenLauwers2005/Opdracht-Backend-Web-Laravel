@@ -7,6 +7,10 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\JewelryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\Admin\AdminNewsController;
+use App\Http\Controllers\Admin\AdminFaqController;
+use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\AdminJewelryController;
+use App\Http\Controllers\Admin\AdminContactController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +41,14 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin')->group(func
     })->name('dashboard');
 
     Route::resource('news', AdminNewsController::class);
+    Route::resource('faq', AdminFaqController::class)->except(['show']);
+    Route::resource('users', AdminUserController::class);
+    Route::post('/users/{user}/toggle-admin', [AdminUserController::class, 'toggleAdmin'])->name('users.toggle-admin');
+    Route::resource('jewelry', AdminJewelryController::class);
+
+    Route::get('/contact', [AdminContactController::class, 'index'])->name('contact.index');
+    Route::get('/contact/{message}', [AdminContactController::class, 'show'])->name('contact.show');
+    Route::delete('/contact/{message}', [AdminContactController::class, 'destroy'])->name('contact.destroy');
 });
 
 require __DIR__.'/auth.php';
