@@ -3,63 +3,98 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdminUserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $users = User::orderBy('created_at', 'desc')->paginate(15);
+        return view('admin.users.index', compact('users'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('admin.users.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:8|confirmed',
+            'is_admin' => 'boolean',
+        ]);
+
+        $validated['password'] = Hash::make($validated['password']);
+        $validated['is_admin'] = $request->has('is_admin');
+
+        User::create($validated);
+
+        return redirect()->route('admin.users.index')
+            ->with('success', 'Gebruiker aangemaakt!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit(User $user)
     {
-        //
+        return view('admin.users.edit', compact('user'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'password' => 'nullable|string|min:8|confirmed',
+        ]);
+
+        if ($request->filled('password')) {
+            $validated['password'] = Hash::make($validated['password']);
+        } else {
+            unset($validated['password']);
+        }
+
+        $user->update($validated);
+
+        return redirect()->route('admin.users.index')
+            ->with('success', 'Gebruiker bijgewerkt!');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy(User $user)
     {
-        //
+        if ($user->id === auth()->id()) {
+            return redirect()->route('admin.users.index')
+                ->with('error', 'Je kunt jezelf niet verwijderen!');
+        }
+
+        if ($user->email === 'admin@ehb.be') {
+            return redirect()->route('admin.users.index')
+                ->with('error', 'De hoofdadmin kan niet verwijderd worden!');
+        }
+
+        $user->delete();
+
+        return redirect()->route('admin.users.index')
+            ->with('success', 'Gebruiker verwijderd!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function toggleAdmin(User $user)
     {
-        //
+        if ($user->email === 'admin@ehb.be') {
+            return redirect()->route('admin.users.index')
+                ->with('error', 'De hoofdadmin rechten kunnen niet worden aangepast!');
+        }
+
+        $user->update(['is_admin' => !$user->is_admin]);
+
+        $message = $user->is_admin
+            ? 'Gebruiker is nu admin!'
+            : 'Admin rechten zijn verwijderd!';
+
+        return redirect()->route('admin.users.index')
+            ->with('success', $message);
     }
 }
