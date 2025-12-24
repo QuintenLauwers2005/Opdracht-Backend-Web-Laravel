@@ -63,8 +63,3 @@
         </div>
     </div>
 @endsection
-```
-
-### Test opnieuw in Herd:
-```
-http://opdracht-backend-web-laravel-juwelier.test
