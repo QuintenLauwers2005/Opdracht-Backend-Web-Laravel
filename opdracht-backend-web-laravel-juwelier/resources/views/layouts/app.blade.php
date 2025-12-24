@@ -13,7 +13,7 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="bg-gray-50">
+    <body class="bg-gray-50 flex flex-col min-h-screen">
         <nav class="bg-white shadow-lg">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between h-16">
@@ -88,7 +88,7 @@
         </div>
     @endif
 
-    <main class="py-6">
+    <main class="flex-1 py-6">
         @yield('content')
     </main>
 
