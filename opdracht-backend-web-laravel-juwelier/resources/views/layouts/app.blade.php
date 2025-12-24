@@ -113,7 +113,7 @@
                 </div>
             </div>
             <div class="border-t border-gray-700 mt-8 pt-8 text-center">
-                <p>2025 Juwelier Hendrickx. Alle rechten voorbehouden.</p>
+                <p>&copy; 2025 Juwelier Hendrickx. Alle rechten voorbehouden.</p>
             </div>
 
         </div>
