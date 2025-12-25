@@ -35,20 +35,20 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/nieuws/{newsItem}/reacties', [CommentController::class, 'store'])->name('comments.store');
 });
 
-Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin')->group(function () {
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
     })->name('dashboard');
 
-    Route::resource('news', AdminNewsController::class);
-    Route::resource('faq', AdminFaqController::class)->except(['show']);
-    Route::resource('users', AdminUserController::class);
-    Route::post('/users/{user}/toggle-admin', [AdminUserController::class, 'toggleAdmin'])->name('users.toggle-admin');
-    Route::resource('jewelry', AdminJewelryController::class);
+    Route::resource('news', App\Http\Controllers\Admin\AdminNewsController::class);
+    Route::resource('faq', App\Http\Controllers\Admin\AdminFaqController::class)->except(['show']);
+    Route::resource('users', App\Http\Controllers\Admin\AdminUserController::class);
+    Route::post('/users/{user}/toggle-admin', [App\Http\Controllers\Admin\AdminUserController::class, 'toggleAdmin'])->name('users.toggle-admin');
+    Route::resource('jewelry', App\Http\Controllers\Admin\AdminJewelryController::class);
 
-    Route::get('/contact', [AdminContactController::class, 'index'])->name('contact.index');
-    Route::get('/contact/{message}', [AdminContactController::class, 'show'])->name('contact.show');
-    Route::delete('/contact/{message}', [AdminContactController::class, 'destroy'])->name('contact.destroy');
+    Route::get('/contact', [App\Http\Controllers\Admin\AdminContactController::class, 'index'])->name('contact.index');
+    Route::get('/contact/{message}', [App\Http\Controllers\Admin\AdminContactController::class, 'show'])->name('contact.show');
+    Route::delete('/contact/{message}', [App\Http\Controllers\Admin\AdminContactController::class, 'destroy'])->name('contact.destroy');
 });
 
 require __DIR__.'/auth.php';
