@@ -7,7 +7,7 @@
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-3xl font-bold">Nieuwsberichten</h1>
             <a href="{{ route('admin.news.create') }}" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">
-                Nieuw bericht
+                Nieuw Bericht
             </a>
         </div>
 
@@ -40,7 +40,7 @@
                             <form action="{{ route('admin.news.destroy', $news) }}" method="POST" class="inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-red-600 hover:text-red-900" onclick="return confirm('Ben je zeker dat je dit nieuwsbericht wilt verwijderen?')">
+                                <button type="submit" class="text-red-600 hover:text-red-900" onclick="return confirm('Weet je zeker dat je dit nieuwsbericht wilt verwijderen?')">
                                     Verwijder
                                 </button>
                             </form>

@@ -11,24 +11,24 @@
                 @csrf
 
                 <div class="mb-4">
-                    <label for="title" class="block text-gray-700 font-semibold mb-2">titel </label>
+                    <label for="title" class="block text-gray-700 font-semibold mb-2">Titel *</label>
                     <input type="text" name="title" id="title" value="{{ old('title') }}" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
                 </div>
 
                 <div class="mb-4">
-                    <label for="content" class="block text-gray-700 font-semibold mb-2">inhoud</label>
+                    <label for="content" class="block text-gray-700 font-semibold mb-2">Inhoud *</label>
                     <textarea name="content" id="content" rows="8" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">{{ old('content') }}</textarea>
                 </div>
 
                 <div class="mb-4">
-                    <label for="publication_date" class="block text-gray-700 font-semibold mb-2">publicatiedatum</label>
+                    <label for="publication_date" class="block text-gray-700 font-semibold mb-2">Publicatiedatum *</label>
                     <input type="date" name="publication_date" id="publication_date" value="{{ old('publication_date', date('Y-m-d')) }}" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
                 </div>
 
                 <div class="mb-6">
-                    <label for="image" class="block text-gray-700 font-semibold mb-2">afbeelding </label>
+                    <label for="image" class="block text-gray-700 font-semibold mb-2">Afbeelding *</label>
                     <input type="file" name="image" id="image" accept="image/*" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
-                    <p class="text-sm text-gray-500 mt-1">indienen in: JPG, PNG of GIF. Maximum 2MB</p>
+                    <p class="text-sm text-gray-500 mt-1">JPG, PNG of GIF. Max 2MB</p>
                 </div>
 
                 <div class="flex gap-4">
