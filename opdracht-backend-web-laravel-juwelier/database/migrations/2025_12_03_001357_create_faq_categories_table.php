@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('faq_categories', function (Blueprint $table) {
             $table->id();
+            $table->string('name');          // ← MOET ERBIJ
+            $table->integer('order')->default(0);
             $table->timestamps();
         });
     }

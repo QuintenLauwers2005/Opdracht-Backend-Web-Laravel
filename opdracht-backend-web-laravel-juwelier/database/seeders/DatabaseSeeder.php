@@ -7,11 +7,9 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
+        // Admin user aanmaken (VERPLICHT volgens opdracht)
         User::create([
             'name' => 'Admin',
             'email' => 'admin@ehb.be',
@@ -21,6 +19,7 @@ class DatabaseSeeder extends Seeder
             'about_me' => 'Beheerder van Juwelier Hendrickx',
         ]);
 
+        // Andere seeders aanroepen
         $this->call([
             UserSeeder::class,
             JewelryCategorySeeder::class,

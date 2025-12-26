@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('news_items', function (Blueprint $table) {
             $table->id();
+            $table->string('title');         // ← MOET ERBIJ
+            $table->text('content');
+            $table->string('image');
+            $table->date('publication_date');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
