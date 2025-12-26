@@ -17,8 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/nieuws', [HomeController::class, 'index'])->name('news.index');
-Route::get('/nieuws/{newsItem}', [HomeController::class, 'show'])->name('news.show');
-
+Route::get('/nieuws/{newsItem}', [NewsController::class, 'show'])->name('news.show');
 Route::get('/faq', [FaqController::class, 'index'])->name('faq.index');
 
 Route::get('/contact', [ContactController::class, 'create'])->name('contact.create');
@@ -32,7 +31,7 @@ Route::get('/profiel/{user}', [ProfileController::class, 'show'])->name('profile
 Route::middleware(['auth'])->group(function () {
     Route::get('/profiel-bewerken', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profiel', [ProfileController::class, 'update'])->name('profile.update');
-    Route::post('/nieuws/{newsItem}/reacties', [CommentController::class, 'store'])->name('comments.store');
+    Route::get('/nieuws/{newsItem}', [NewsController::class, 'show'])->name('news.show');
 });
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
