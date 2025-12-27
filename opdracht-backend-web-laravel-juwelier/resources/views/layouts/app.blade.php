@@ -43,14 +43,14 @@
                    </div>
                     <div class="hidden sm:ml-6 sm:flex sm:items-center">
                         @auth
-                            @if(auth()->user()->is_admin)
-                                <a href="{{route('admin.dashboard')}}" class="text-gray-700 hover:text-gray-900 px-3 py-2 text-sm font-medium">
+                            @if(auth()->user()->is_admin ?? false)
+                                <a href="{{ route('admin.dashboard') }}" class="text-gray-700 hover:text-gray-900 px-3 py-2 text-sm font-medium">
                                     Admin Panel
                                 </a>
                             @endif
-                                <a href="{{route('profile.show', auth()->user())}}" class="text-gray-700 hover:text-gray-900 px-3 py-2 text-sm font-medium">
-                                    {{ auth()->user()->name }}
-                                </a>
+                            <a href="{{ route('profile.show', auth()->user()) }}" class="text-gray-700 hover:text-gray-900 px-3 py-2 text-sm font-medium">
+                                {{ auth()->user()->name ?? 'User' }}
+                            </a>
                                 <form method="POST" action="{{route('logout')}}" class="inline">
                                     @csrf
                                     <button type="submit" class="text-gray-700 hover:text-gray-900 px-3 py-2 text-sm font-medium">
