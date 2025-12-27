@@ -19,8 +19,12 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 @foreach($featuredProducts as $product)
                     <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
-                        <div class="h-48 bg-gray-200 flex items-center justify-center">
-                            <span class="text-4xl">💍</span>
+                        <div class="h-48 bg-gray-200 flex items-center justify-center overflow-hidden">
+                            @if($product->image && file_exists(public_path('storage/' . $product->image)))
+                                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
+                            @else
+                                <span class="text-4xl">💍</span>
+                            @endif
                         </div>
                         <div class="p-4">
                             <h3 class="font-bold text-lg mb-2">{{ $product->name }}</h3>

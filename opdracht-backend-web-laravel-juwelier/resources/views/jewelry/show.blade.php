@@ -7,8 +7,12 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             <!-- Product Image -->
             <div class="bg-white rounded-lg shadow-md p-8">
-                <div class="h-96 bg-gray-200 flex items-center justify-center rounded-lg">
-                    <span class="text-9xl">💍</span>
+                <div class="h-96 bg-gray-200 flex items-center justify-center rounded-lg overflow-hidden">
+                    @if($product->image && file_exists(public_path('storage/' . $product->image)))
+                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
+                    @else
+                        <span class="text-9xl">💍</span>
+                    @endif
                 </div>
             </div>
 

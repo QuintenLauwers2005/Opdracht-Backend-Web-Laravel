@@ -32,8 +32,12 @@
         <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
             @forelse($products as $product)
                 <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
-                    <div class="h-48 bg-gray-200 flex items-center justify-center">
-                        <span class="text-5xl">💍</span>
+                    <div class="h-48 bg-gray-200 flex items-center justify-center overflow-hidden">
+                        @if($product->image && file_exists(public_path('storage/' . $product->image)))
+                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
+                        @else
+                            <span class="text-5xl">💍</span>
+                        @endif
                     </div>
                     <div class="p-4">
                         <span class="text-xs text-gray-500 uppercase">{{ $product->category->name }}</span>
