@@ -5,8 +5,12 @@
 @section('content')
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="bg-white rounded-lg shadow-md overflow-hidden mb-8">
-            <div class="h-64 bg-gray-200 flex items-center justify-center">
-                <span class="text-6xl">nieuws</span>
+            <div class="h-64 bg-gray-200 flex items-center justify-center overflow-hidden">
+                @if($newsItem->image && file_exists(public_path('storage/' . $newsItem->image)))
+                    <img src="{{ asset('storage/' . $newsItem->image) }}" alt="{{ $newsItem->title }}" class="w-full h-full object-cover">
+                @else
+                    <span class="text-6xl">📰</span>
+                @endif
             </div>
             <div class="p-8">
                 <div class="flex items-center text-sm text-gray-500 mb-4">
