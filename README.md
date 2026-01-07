@@ -1,10 +1,10 @@
-# Juwelier Lauwers - Laravel Project
+# Juwelier Hendrickx - Laravel Project
 
 Een dynamische website voor een juwelierwinkel gebouwd met Laravel 11, inclusief admin panel voor het beheren van producten, nieuws, FAQ, gebruikers en contactberichten.
 
 **Student:** Quinten Lauwers  
 **Vak:** Backend Web Development  
-**Academiejaar:** 2024-2025  
+**Academiejaar:** 2025-2026  
 **Instelling:** Erasmushogeschool Brussel
 
 ---
@@ -56,8 +56,8 @@ Zorg dat je het volgende geïnstalleerd hebt:
 
 ### 1. Clone Repository
 ```bash
-git clone https://github.com/jouw-username/opdracht-laravel-juwelier.git
-cd opdracht-laravel-juwelier
+git clone https://github.com/QuintenLauwers2005/Opdracht-Backend-Web-Laravel.git
+cd opdracht-backend-web-laravel-juwelier
 ```
 
 ### 2. Installeer Dependencies
@@ -125,6 +125,7 @@ php artisan serve
 ```
 - Ga naar: `http://localhost:8000`
 
+hier kunnen conflicten zijn vanwege de firewall of herd
 ---
 
 ## 🎯 Eerste Gebruik
@@ -238,7 +239,7 @@ opdracht-laravel-juwelier/
     - *Gebruikt voor:* Laravel best practices en code voorbeelden
 
 ### AI Assistentie
-8. **Claude AI (Anthropic)**
+8. **Claude AI (Sonnet 4.5)** - https://claude.ai/share/d9048bda-989d-4618-9ec6-edb3f0f1807b
     - *Gebruikt voor:* Code structuur advies, debugging hulp, uitleg van Laravel concepten
 
 ### Design
@@ -250,7 +251,32 @@ opdracht-laravel-juwelier/
     - *Gebruikt voor:* Version control en code hosting
 
 ---
+## Uitleg Code
+Omdat ik in aanzienlijke mate gebruik heb gemaakt van AI, heb ik per onderdeel één document opgesteld waarin ik de werking toelicht. Op die manier kan ik aantonen dat ik begrijp wat er gebeurt. Vanwege de omvang van het project heb ik niet elke pagina afzonderlijk uitgelegd, aangezien dit het proces aanzienlijk zou verlengen en de code minder overzichtelijk zou maken (daarnaast zou ik ook vaak in herhaling vallen).
 
+### Migration
+**create_news_items_table.php**
+- *waarom:* Toont foreign keys (relatie naar users), verschillende kolomtypes (string, text, date), en constraints
+### Model
+**NewsItem.php**
+- *waarom:* Heeft zowel One-to-Many relaties (belongsTo User, hasMany Comments), fillable, en casts - meest complete voorbeeld
+### Controller
+**AdminNewsController.php**
+- *waarom:* Volledige CRUD, file uploads, validation
+### Routes
+**web.php**
+- *waarom:* Toont middleware, route grouping, route naming, resource routes - alle concepten samen
+### View(Blade)
+**resources/views/news/show.blade.php**
+- *waarom:* Toont layout inheritance, control structures (@foreach, @auth, @forelse), XSS protection ({{ }}), relaties ($news->user->name)
+### Seeder
+**NewsSeeder.php**
+- *waarom:* Duidelijk, toont Model::create(), testdata, foreign keys
+### Middleware
+**IsAdmin.php**
+- *waarom:* Custom middleware, simpel en duidelijk, toont authenticatie check
+
+---
 ## 🐛 Troubleshooting
 
 ### Styling laadt niet
@@ -315,11 +341,11 @@ php artisan migrate:fresh --seed
 
 ---
 
-## 📞 Contact
+## Auteur
 
 **Quinten Lauwers**  
-Backend Web Development - Erasmushogeschool Brussel
+Backend Web Development - Erasmushogeschool Brussel - 2de jaar Toegepaste Informatica
 
 ---
 
-© 2025 Juwelier Lauwers - Laravel Project
+2025 Juwelier Hendrickx - Laravel Project
