@@ -19,11 +19,12 @@ Een dynamische website voor een juwelierwinkel gebouwd met Laravel 11, inclusief
 - [Project Structuur](#project-structuur)
 - [Belangrijke URLs](#belangrijke-urls)
 - [Bronvermeldingen](#bronvermeldingen)
+- [Uitleg Code](#uitleg-code)
 - [Troubleshooting](#troubleshooting)
 
 ---
 
-## ✨ Features
+## Features
 
 ### Verplichte Features (Voldaan)
 - ✅ **Login systeem** met admin/gebruiker rollen
@@ -39,7 +40,7 @@ Een dynamische website voor een juwelierwinkel gebouwd met Laravel 11, inclusief
 
 ---
 
-## 📦 Vereisten
+## Vereisten
 
 Zorg dat je het volgende geïnstalleerd hebt:
 
@@ -52,7 +53,7 @@ Zorg dat je het volgende geïnstalleerd hebt:
 
 ---
 
-## 🚀 Installatie
+## Installatie
 
 ### 1. Clone Repository
 ```bash
@@ -128,7 +129,7 @@ php artisan serve
 hier kunnen conflicten zijn vanwege de firewall of herd
 ---
 
-## 🎯 Eerste Gebruik
+## Eerste Gebruik
 
 ### Admin Login
 - **Email:** `admin@ehb.be`
@@ -146,7 +147,7 @@ hier kunnen conflicten zijn vanwege de firewall of herd
 
 ---
 
-## 🛠️ Technologieën
+## Technologieën
 
 ### Backend
 - **Laravel 11** - PHP framework (MVC, Eloquent ORM, Blade)
@@ -166,7 +167,7 @@ hier kunnen conflicten zijn vanwege de firewall of herd
 
 ---
 
-## 📁 Project Structuur
+## Project Structuur
 ```
 opdracht-laravel-juwelier/
 ├── app/
@@ -190,7 +191,7 @@ opdracht-laravel-juwelier/
 
 ---
 
-## 🔗 Belangrijke URLs
+## Belangrijke URLs
 
 ### Publiek
 - Home: `/`
@@ -213,7 +214,7 @@ opdracht-laravel-juwelier/
 
 ---
 
-## 📚 Bronvermeldingen
+## Bronvermeldingen
 
 ### Officiële Documentatie
 1. **Laravel Documentation** - https://laravel.com/docs/11.x
@@ -277,7 +278,7 @@ Omdat ik in aanzienlijke mate gebruik heb gemaakt van AI, heb ik per onderdeel �
 - *waarom:* Custom middleware, simpel en duidelijk, toont authenticatie check
 
 ---
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Styling laadt niet
 ```bash
@@ -318,7 +319,7 @@ php artisan migrate:fresh --seed
 
 ---
 
-## 🔐 Beveiliging
+## Beveiliging
 
 - ✅ CSRF protection op alle forms
 - ✅ XSS protection via Blade escaping
@@ -328,7 +329,7 @@ php artisan migrate:fresh --seed
 
 ---
 
-## 🎓 Technische Vereisten (Voldaan)
+## Technische Vereisten (Voldaan)
 
 - ✅ Twee layouts (app & admin)
 - ✅ CSRF & XSS protection
