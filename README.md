@@ -112,6 +112,9 @@ Open **twee terminals**:
 
 **Terminal 1 - Frontend:**
 ```bash
+cd opdracht-backend-web-laravel-juwelier
+```
+```bash
 npm run dev
 ```
 
@@ -121,6 +124,9 @@ npm run dev
 - Ga naar: `http://opdracht-backend-web-laravel-juwelier.test`
 
 **Zonder Herd:**
+```bash
+ cd opdracht-backend-web-laravel-juwelier
+```
 ```bash
 php artisan serve
 ```
