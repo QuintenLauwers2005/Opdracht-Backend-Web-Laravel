@@ -43,9 +43,20 @@ Route::get('/profiel/{user}', [ProfileController::class, 'show'])->name('profile
 Route::middleware(['auth'])->group(function () {
 
     // Eigen profiel bewerken
-    Route::get('/profiel-bewerken', [ProfileController::class, 'edit'])->name('profile.edit');   // Toon bewerkformulier
-    Route::put('/profiel', [ProfileController::class, 'update'])->name('profile.update');         // Sla wijzigingen op
-    Route::delete('/profiel', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profiel/{user}', [ProfileController::class, 'show'])
+        ->name('profile.show');
+
+    // Profiel bewerken (formulier tonen)
+    Route::get('/profiel', [ProfileController::class, 'edit'])
+        ->name('profile.edit');
+
+    // Profiel updaten
+    Route::put('/profiel', [ProfileController::class, 'update'])
+        ->name('profile.update');
+
+    // Account verwijderen
+    Route::delete('/profiel', [ProfileController::class, 'destroy'])
+        ->name('profile.destroy');
     // Reactie plaatsen bij een nieuwsbericht
     Route::post('/nieuws/{newsItem}/reacties', [CommentController::class, 'store'])->name('comments.store');
 });
