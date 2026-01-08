@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use App\Models\User;
 
@@ -26,17 +27,47 @@ class ProfileController extends Controller
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(Request $request)
     {
-        $request->user()->fill($request->validated());
+        $user = auth()->user();
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        $validated = $request->validate([
+            'username' => 'nullable|string|max:255|unique:users,username,' . $user->id,
+            'birthday' => 'nullable|date|before:today',
+            'about_me' => 'nullable|string|max:500',
+            'profile_photo' => 'nullable|image|max:2048',
+            'current_password' => 'nullable|required_with:password|current_password',  // ← NIEUW
+            'password' => 'nullable|min:8|confirmed',  // ← NIEUW
+        ], [
+            'current_password.current_password' => 'Het huidige wachtwoord is onjuist.',
+            'password.min' => 'Het nieuwe wachtwoord moet minimaal 8 karakters zijn.',
+            'password.confirmed' => 'De wachtwoord bevestiging komt niet overeen.',
+        ]);
+
+        // Update profielfoto
+        if ($request->hasFile('profile_photo')) {
+            if ($user->profile_photo) {
+                Storage::disk('public')->delete($user->profile_photo);
+            }
+
+            $path = $request->file('profile_photo')->store('profile-photos', 'public');
+            $validated['profile_photo'] = $path;
         }
 
-        $request->user()->save();
+        // Update wachtwoord (NIEUW!)
+        if ($request->filled('password')) {
+            $validated['password'] = bcrypt($validated['password']);
+        } else {
+            unset($validated['password']);
+        }
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        // Verwijder current_password uit validated (niet opslaan in database)
+        unset($validated['current_password']);
+
+        $user->update($validated);
+
+        return redirect()->route('profile.show', $user)
+            ->with('success', 'Profiel succesvol bijgewerkt!');
     }
 
     /**
