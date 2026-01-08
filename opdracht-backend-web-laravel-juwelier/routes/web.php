@@ -45,7 +45,7 @@ Route::middleware(['auth'])->group(function () {
     // Eigen profiel bewerken
     Route::get('/profiel-bewerken', [ProfileController::class, 'edit'])->name('profile.edit');   // Toon bewerkformulier
     Route::put('/profiel', [ProfileController::class, 'update'])->name('profile.update');         // Sla wijzigingen op
-
+    Route::delete('/profiel', [ProfileController::class, 'destroy'])->name('profile.destroy');
     // Reactie plaatsen bij een nieuwsbericht
     Route::post('/nieuws/{newsItem}/reacties', [CommentController::class, 'store'])->name('comments.store');
 });
